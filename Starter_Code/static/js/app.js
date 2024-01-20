@@ -100,15 +100,14 @@ d3.json("https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1
             type: "scatter",
             mode: "markers",
             x: new_xval,
+            xaxis: 'OTU ID',
             y: new_yval,
             text:textval,
-            marker:{size:markersize, sizemode:"area", color:markercolors, opacity:[0.6, 0.7, 0.8, 0.9]}        
-            
+            marker:{size:markersize, sizemode:"area", color:markercolors, opacity:[0.6, 0.1, 0.8, 0.9]}                   
         };
         var ndata=[trace1];
         var layout={
-                title: 'Bubble Chart Size Scaling',
-                xlabel: 'OTU ID',
+                title: 'Bubble Chart-sample values for OTU IDs SizeScaling',
                 showlegend: false,
                 height: 500,
                 width: 900,
@@ -116,9 +115,6 @@ d3.json("https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1
         Plotly.plot('bubble',ndata, layout);  
         });  
        
-/*
-});
-    
-}); */
+
 
     
