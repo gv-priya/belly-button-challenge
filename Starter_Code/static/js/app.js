@@ -52,10 +52,11 @@ d3.json("https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1
    console.log("otu +OtuIDs", {otu_ids_toplot_x});
   /* getting data ready to plot */
    var data_viz = [{
-    x: otu_ids_toplot_x,
-    y: first_ten_samplevalues,
-    base:0,
     type  : 'bar',
+    y: otu_ids_toplot_x,
+    x: first_ten_samplevalues,
+    base:0,
+    orientation:'h',
     text : slice2_otu_labels,
     marker : {
         color: '#C8A2C8',
@@ -68,10 +69,56 @@ d3.json("https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1
         title: 'OTU ID and sample values',
         hovermode: "closest",
         height : 400,
-        weight :800
+        weight :600
         };
         var config = {responsive:true};
     Plotly.newPlot('bar_div', data_viz, layout, config);
+});
+/*bubble chart beginning*/
+ d3.json("https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json").then(function(data)
+{
+    console.log(data);
+    xval = data.samples.map(x=>x.otu_ids);
+    sliced_1 = xval[0].slice(0,10);
+    new_xval = sliced_1;
+    yval = data.samples.map(y=>y.sample_values);
+    s_val = yval.slice(0,10);
+    sliced_sampleval = s_val[0];
+    new_yval = sliced_sampleval.slice(0,10);
+    labels = data.samples.map(z=>z.otu_labels);
+    sliced_labels = labels.slice(0,10);
+    labels_new = sliced_labels[0];
+    console.log("new_xval: ",new_xval);
+    console.log("new_yval: ",new_yval);
+    /*bubblechart data*/
+    xval = new_xval;
+    yval = new_yval;
+    markersize = new_yval;
+    markercolors = ['rgb(93, 164, 214)', 'rgb(255, 144, 14)',  'rgb(44, 160, 101)', 'rgb(255, 65, 54)', 'rgb(150, 101, 135)','rgb(0, 128, 106)', 'rgb(0, 230, 230)'];
+    textval = labels_new.slice(0,10);
+        var trace1={
+            type: "scatter",
+            mode: "markers",
+            x: new_xval,
+            y: new_yval,
+            text:textval,
+            marker:{size:markersize, sizemode:"area", color:markercolors, opacity:[0.6, 0.7, 0.8, 0.9]}        
+            
+        };
+        var ndata=[trace1];
+        var layout={
+                title: 'Bubble Chart Size Scaling',
+                xlabel: 'OTU ID',
+                showlegend: false,
+                height: 500,
+                width: 900,
+                };
+        Plotly.plot('bubble',ndata, layout);  
+        });  
+       
+/*
+});
     
-}); 
+}); */
+
     
